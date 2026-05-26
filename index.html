@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday</title>
+
+    <!-- Greeting card fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Script -->
+    <script src="./script.js" defer></script>
+</head>
+
+<body class="scroll-driven">
+    <!-- Scroll-driven scrapbook scene -->
+    <div class="scroll-container">
+        <div class="sticky-scene">
+            <div class="table-background" role="img" aria-label="Cozy wooden desk"></div>
+
+            <div id="zoomBook">
+                <input type="checkbox" id="cover_checkbox">
+                <input type="checkbox" id="page1_checkbox">
+                <input type="checkbox" id="page2_checkbox">
+                <input type="checkbox" id="page3_checkbox">
+                <input type="checkbox" id="page4_checkbox">
+                <input type="checkbox" id="page5_checkbox">
+
+                <!-- Flip Book -->
+                <div id="flip_book">
+                    <div class="front_cover">
+                        <label for="cover_checkbox" id="cover"></label>
+                        <p class="page-message page-message--cover">Happy Birthday!</p>
+                    </div>
+
+                    <div class="page" id="page1">
+                        <div class="front_page">
+                            <label for="page1_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                            <img class="front_content" src="./assets/images/pages/page1.webp" alt="Front content">
+                            <p class="page-message page-message--corner">Wishing you the happiest of birthdays!</p>
+                        </div>
+
+                        <div class="back_page">
+                            <label for="page1_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                            <img class="back_content" src="./assets/images/pages/page2.webp" alt="Back content">
+                            <p class="page-message page-message--bottom">May your day be filled with joy &amp; laughter</p>
+                        </div>
+                    </div>
+
+                    <div class="page" id="page2">
+                        <div class="front_page">
+                            <label for="page2_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                            <img class="front_content" src="./assets/images/pages/page3.webp" alt="Front content">
+                            <p class="page-message page-message--corner">Here's to another year of adventures</p>
+                        </div>
+
+                        <div class="back_page">
+                            <label for="page2_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                            <img class="back_content" src="./assets/images/pages/page4.webp" alt="Back content">
+                            <p class="page-message page-message--bottom">You deserve all the cake &amp; love today</p>
+                        </div>
+                    </div>
+
+                    <div class="page" id="page3">
+                        <div class="front_page">
+                            <label for="page3_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                            <img class="front_content" src="./assets/images/pages/page5.webp" alt="Front content">
+                            <p class="page-message page-message--corner">Sending hugs &amp; birthday sparkles</p>
+                        </div>
+
+                        <div class="back_page">
+                            <label for="page3_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                            <img class="back_content" src="./assets/images/pages/page6.webp" alt="Back content">
+                            <p class="page-message page-message--bottom">Hope every moment today feels magical</p>
+                        </div>
+                    </div>
+
+                    <div class="page" id="page4">
+                        <div class="front_page">
+                            <label for="page4_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                            <img class="front_content" src="./assets/images/pages/page7.webp" alt="Front content">
+                            <p class="page-message page-message--corner">Cheers to you — today &amp; always!</p>
+                        </div>
+
+                        <div class="back_page">
+                            <label for="page4_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                            <img class="back_content" src="./assets/images/pages/page8.webp" alt="Back content">
+                            <p class="page-message page-message--bottom">May all your dreams take flight this year</p>
+                        </div>
+                    </div>
+
+                    <div class="page" id="page5">
+                        <div class="front_page">
+                            <label for="page5_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/front_page_edge_shading.webp" alt="Front page edge shading">
+                            <img class="front_content" src="./assets/images/pages/page9.webp" alt="Front content">
+                            <p class="page-message page-message--corner">Grateful for every memory we share</p>
+                        </div>
+
+                        <div class="back_page">
+                            <label for="page5_checkbox"></label>
+                            <img class="edge_shading" src="./assets/images/back_page_edge_shading.webp" alt="Back page edge shading">
+                            <img class="back_content" src="./assets/images/pages/page10.webp" alt="Back content">
+                            <p class="page-message page-message--bottom">Keep shining — the world needs your light</p>
+                        </div>
+                    </div>
+
+                    <div class="back_cover">
+                        <p class="page-message page-message--cover-back">With love, always ♥</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toggle mode button -->
+    <!-- <button id="toggle-mode-btn">
+        <i class="bi bi-moon-stars-fill"></i>
+    </button> -->
+
+   
+    <!-- Rotate phone (portrait mobile only) -->
+    <div id="rotate-device-overlay" aria-live="polite">
+        <div class="rotate-device-card">
+            <i class="bi bi-phone-landscape rotate-device-icon" aria-hidden="true"></i>
+            <p class="rotate-device-title">Rotate your phone</p>
+            <p class="rotate-device-text">This birthday card is best viewed in landscape. Turn your device sideways to continue.</p>
+        </div>
+    </div>
+</body>
+
+</html>

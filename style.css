@@ -1,0 +1,457 @@
+/* RESET CSS */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* VARIABLES */
+:root {
+    --dark-color: rgb(2, 4, 8);
+    --dark-hover: rgba(255, 255, 255, 0.1);
+
+    --light-color: rgb(245, 245, 245);
+    --light-hover: rgba(0, 0, 0, 0.1);
+
+  /* Scroll animation phases */
+    --phase-zoom-end: 0.45;
+
+  /* Table placement (resting pose on the pink notepad) */
+    --table-scale: 0.62;
+    --table-rotate-x: 28deg;
+    --table-rotate-y: 3deg;
+    --table-rotate-z: 8deg;
+    --table-translate-x: -12vw;
+    --table-translate-y: 2vh;
+
+    --message-font: "Caveat", cursive;
+    --message-font-display: "Great Vibes", cursive;
+}
+
+/* GENERAL */
+body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: monospace, sans-serif;
+    font-size: 0.5rem;
+    overflow-x: hidden;
+    background-color: var(--dark-color);
+}
+
+body.light-mode {
+    color: var(--dark-color);
+    background-color: var(--light-color);
+}
+
+body.light-mode #toggle-mode-btn:hover {
+    background-color: var(--light-hover);
+}
+
+body.dark-mode {
+    color: var(--light-color);
+    background-color: var(--dark-color);
+}
+
+body.dark-mode #toggle-mode-btn:hover {
+    background-color: var(--dark-hover);
+}
+
+a {
+    text-decoration: none;
+    color: var(--dark-color);
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+/* Scroll-driven layout */
+.scroll-container {
+    height: 900vh;
+    position: relative;
+}
+
+.sticky-scene {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    perspective: 1500px;
+    perspective-origin: 50% 45%;
+}
+
+.table-background {
+    position: absolute;
+    inset: 0;
+    background-image: url("./assets/Table_background.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+#zoomBook {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 298px;
+    height: 420px;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    z-index: 1;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+    /* Resting table pose — overridden by JS on scroll */
+    transform:
+        translate(calc(-50% + var(--table-translate-x)), calc(-50% + var(--table-translate-y)))
+        scale(var(--table-scale))
+        rotateX(var(--table-rotate-x))
+        rotateY(var(--table-rotate-y))
+        rotateZ(var(--table-rotate-z));
+}
+
+body.scroll-driven #zoomBook label {
+    pointer-events: none;
+    cursor: default;
+}
+
+body.rotate-blocked .scroll-container {
+    pointer-events: none;
+    user-select: none;
+}
+
+#toggle-mode-btn {
+    width: 2rem;
+    height: 2rem;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#portfolio-link {
+    padding-right: 0.5rem;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    font-size: 0.75rem;
+    z-index: 100;
+}
+
+#github-link {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 100;
+}
+
+/* Rotate device overlay (portrait mobile) */
+#rotate-device-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(12, 10, 18, 0.92);
+    backdrop-filter: blur(6px);
+}
+
+#rotate-device-overlay.show {
+    display: flex;
+}
+
+.rotate-device-card {
+    max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    color: rgb(255, 248, 240);
+}
+
+.rotate-device-icon {
+    font-size: 4rem;
+    color: rgb(255, 182, 193);
+    animation: rotate-hint 2s ease-in-out infinite;
+}
+
+.rotate-device-title {
+    font-family: var(--message-font-display);
+    font-size: 2.25rem;
+    line-height: 1.2;
+}
+
+.rotate-device-text {
+    font-family: var(--message-font);
+    font-size: 1.35rem;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+@keyframes rotate-hint {
+    0%, 100% { transform: rotate(-90deg); }
+    50% { transform: rotate(0deg); }
+}
+
+@media (max-width: 768px),
+       ((max-height: 520px) and (orientation: landscape) and (pointer: coarse)) {
+    :root {
+        --table-scale: 0.32;
+        --table-translate-x: -6vw;
+        --table-translate-y: 0vh;
+    }
+}
+
+/* FLIP BOOK */
+#flip_book {
+    width: 298px;
+    height: 420px;
+    position: relative;
+    transition-duration: 1s;
+    perspective: 2000px;
+}
+
+.front_cover,
+.back_cover {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2.5px 5px 5px 2.5px;
+    background-image: url(./assets/images/flip_book_edge_shading.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgb(220, 20, 60);
+    box-shadow: 0 0 5px 0 rgb(25, 25, 25, 0.25);
+}
+
+.front_cover {
+    position: absolute;
+    cursor: pointer;
+    transform-origin: center left;
+    transition: transform 0.5s;
+    z-index: 99;
+}
+
+.front_cover label {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+}
+
+.page {
+    width: 288px;
+    height: 400px;
+    position: absolute;
+    top: 10px;
+    left: 1px;
+    border-radius: 0 5px 5px 0;
+    background-color: white;
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition-duration: 0.5s;
+}
+
+.front_page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.front_page label {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.back_page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    z-index: 100;
+}
+
+.back_page label {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.edge_shading {
+    width: 288px;
+    height: 400px;
+    position: absolute;
+    z-index: 98;
+}
+
+.front_content {
+    width: 287px;
+    height: 398px;
+    position: absolute;
+    top: 1px;
+    border-radius: 0 5px 5px 0;
+    z-index: 97;
+}
+
+.back_content {
+    width: 287px;
+    height: 398px;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    border-radius: 5px 0 0 5px;
+    z-index: 97;
+}
+
+.back_cover {
+    position: relative;
+    z-index: -1;
+}
+
+/* Birthday messages on pages */
+.page-message {
+    position: absolute;
+    z-index: 99;
+    margin: 0;
+    padding: 0.35rem 0.65rem;
+    max-width: 85%;
+    font-family: var(--message-font);
+    font-weight: 600;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    color: rgb(55, 30, 45);
+    text-shadow:
+        0 0 12px rgba(255, 255, 255, 0.95),
+        0 1px 2px rgba(255, 255, 255, 0.8),
+        0 0 1px rgba(255, 255, 255, 1);
+    pointer-events: none;
+}
+
+.page-message--corner {
+    right: 0.5rem;
+    bottom: 0.75rem;
+    text-align: right;
+}
+
+.page-message--bottom {
+    left: 50%;
+    bottom: 0.65rem;
+    transform: translateX(-50%);
+    text-align: center;
+    max-width: 92%;
+}
+
+.page-message--cover,
+.page-message--cover-back {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--message-font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    color: rgb(255, 248, 245);
+    text-shadow:
+        0 2px 8px rgba(80, 10, 30, 0.55),
+        0 0 20px rgba(0, 0, 0, 0.25);
+    max-width: 90%;
+    text-align: center;
+}
+
+/* Back-page text uses the same coords as front; parent .back_page is already rotated */
+.back_page .page-message--bottom {
+    transform: translateX(-50%);
+}
+
+.back_page .page-message--corner {
+    right: 0.5rem;
+    left: auto;
+    text-align: right;
+}
+
+#page1 {
+    z-index: 8;
+}
+
+#page2 {
+    z-index: 5;
+}
+
+#page3 {
+    z-index: 4;
+}
+
+#page4 {
+    z-index: 3;
+}
+
+#page5 {
+    z-index: 2;
+}
+
+#cover_checkbox:checked~#flip_book {
+    transform: translateX(144px);
+}
+
+#cover_checkbox:checked~#flip_book .front_cover {
+    transform: rotateY(-180deg);
+    transition: transform 1.5s, z-index 0.5s 0.5s;
+    z-index: 1;
+}
+
+#cover_checkbox:checked~#flip_book #cover {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+}
+
+#page1_checkbox:checked~#flip_book #page1 {
+    transform: rotateY(-180deg);
+    z-index: 3;
+}
+
+#page2_checkbox:checked~#flip_book #page2 {
+    transform: rotateY(-180deg);
+    z-index: 4;
+}
+
+#page3_checkbox:checked~#flip_book #page3 {
+    transform: rotateY(-180deg);
+    z-index: 5;
+}
+
+#page4_checkbox:checked~#flip_book #page4 {
+    transform: rotateY(-180deg);
+    z-index: 6;
+}
+
+#page5_checkbox:checked~#flip_book #page5 {
+    transform: rotateY(-180deg);
+    z-index: 9;
+}
